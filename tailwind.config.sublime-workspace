@@ -1,0 +1,263 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"use",
+				"useEffect"
+			],
+			[
+				"fle",
+				"flex-1"
+			],
+			[
+				"street",
+				"street_avengers"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/crato/uxaudit-pro/.env.local",
+		"/Users/crato/ux-audit-pro/.env.local",
+		"/Users/crato/ux-audit-pro/tsconfig.json",
+		"/Users/crato/ux-audit-pro/src/components/ui/button.tsx",
+		"/Users/crato/ux-audit-pro/src/components/ui/avatar.tsx",
+		"/Users/crato/ux-audit-pro/src/components/ui/form.tsx",
+		"/Users/crato/ux-audit-pro/src/components/ui/input.tsx",
+		"/Users/crato/ux-audit-pro/src/components/ui/card.tsx",
+		"/Users/crato/ux-audit-pro/src/components/dashboard/recent-audits.tsx",
+		"/Users/crato/ux-audit-pro/src/app/dashboard/page.tsx",
+		"/Users/crato/ux-audit-pro/src/app/auth/login/page.tsx",
+		"/Users/crato/ux-audit-pro/src/app/api/auth-test/route.ts",
+		"/Users/crato/ux-audit-pro/src/models/comment.ts",
+		"/Users/crato/ux-audit-pro/src/models/team.ts",
+		"/Users/crato/ux-audit-pro/src/lib/db.ts",
+		"/Users/crato/ux-audit-pro/src/models/user.ts",
+		"/Users/crato/ux-audit-pro/src/components/team-management.tsx",
+		"/Users/crato/ux-audit-pro/src/app/dashboard/audits/new/page.tsx",
+		"/Users/crato/ux-audit-pro/src/app/api/audits/route.ts",
+		"/Users/crato/ux-audit-pro/src/lib/validation-utils.ts",
+		"/Users/crato/ux-audit-pro/.gitignore",
+		"/Users/crato/ux-audit-pro/src/app/api/users/route.ts",
+		"/Users/crato/ux-audit-pro/src/app/dashboard/teams/page.tsx",
+		"/Users/crato/ux-audit-pro/src/app/api/teams/invite/route.ts",
+		"/Users/crato/ux-audit-pro/src/app/api/teams/route.ts",
+		"/Users/crato/ux-audit-pro/src/lib/db-utils.ts",
+		"/Users/crato/ux-audit-pro/src/models/audit.ts",
+		"/Users/crato/ux-audit-pro/src/app/api/auth/[...auth0]/route.ts",
+		"/Users/crato/ux-audit-pro/src/components/layout/footer.tsx",
+		"/Users/crato/ux-audit-pro/src/components/ui/use-toast.tsx",
+		"/Users/crato/ux-audit-pro/src/components/ui/separator.tsx",
+		"/Users/crato/ux-audit-pro/src/components/layout/user-nav.tsx",
+		"/Users/crato/ux-audit-pro/src/components/layout/profile-button.tsx",
+		"/Users/crato/ux-audit-pro/src/app/dashboard/reports/layout.tsx",
+		"/Users/crato/ux-audit-pro/src/app/dashboard/layout.tsx",
+		"/Users/crato/ux-audit-pro/src/app/dashboard/audits/layout.tsx",
+		"/Users/crato/ux-audit-pro/src/components/layout/header.tsx",
+		"/Users/crato/ux-audit-pro/src/components/ui/switch.tsx",
+		"/Users/crato/ux-audit-pro/src/components/ui/radio-group.tsx",
+		"/Users/crato/ux-audit-pro/src/app/dashboard/settings/notifications/page.tsx",
+		"/Users/crato/ux-audit-pro/src/app/dashboard/settings/display/page.tsx",
+		"/Users/crato/ux-audit-pro/src/components/ui/select.tsx",
+		"/Users/crato/ux-audit-pro/src/app/dashboard/settings/layout.tsx",
+		"/Users/crato/ux-audit-pro/src/components/ui/toaster.tsx",
+		"/Users/crato/ux-audit-pro/src/middleware.ts",
+		"/Users/crato/ux-audit-pro/src/app/dashboard/settings/page.tsx",
+		"/Users/crato/ux-audit-pro/.github/workflows/main.yml",
+		"/Users/crato/ux-audit-pro/src/app/dashboard/team/page.tsx",
+		"/Users/crato/ux-audit-pro/src/app/dashboard/team/layout.tsx",
+		"/Users/crato/ux-audit-pro/src/lib/utils.ts",
+		"/Users/crato/Downloads/button-component.ts",
+		"/Users/crato/ux-audit-pro/tailwind.config.ts",
+		"/Users/crato/ux-audit-pro/src/app/globals.css",
+		"/Users/crato/ux-audit-pro/src/app/layout.tsx",
+		"/Users/crato/ux-audit-pro/src/components/layout/sidebar.tsx",
+		"/Users/crato/ux-audit-pro/src/app/api/auth/[auth0]/route.ts",
+		"/Users/crato/ux-audit-pro/next.config.js",
+		"/Users/crato/ux-audit-pro/package.json",
+		"/Users/crato/ux-audit-pro/src/app/api/auth/me/route.ts",
+		"/Users/crato/ux-audit-pro/src/app/api/settings/route.ts",
+		"/Users/crato/ux-audit-pro/src/lib/schemas/audit.ts",
+		"/Users/crato/ux-audit-pro/src/lib/schemas/team.ts",
+		"/Users/crato/ux-audit-pro/src/app/dashboard/audits/page.tsx",
+		"/Users/crato/ux-audit-pro/src/app/dashboard/reports/page.tsx",
+		"/Users/crato/ux-audit-pro/.github/workflows/ci.yml",
+		"/Users/crato/ux-audit-pro/src/app/page.tsx",
+		"/Users/crato/ux-audit-pro/src/components/ui/dropdown-menu.tsx",
+		"/Users/crato/ux-audit-pro/src/components/layout/breadcrumbs.tsx",
+		"/Users/crato/ux-audit-pro/src/components/profile.tsx",
+		"/Users/crato/ux-audit-pro/src/components/layout/client-layout.tsx",
+		"/Users/crato/ux-audit-pro/src/components/dashboard/overview.tsx",
+		"/Users/crato/ux-audit-pro/src/components/dashboard/activity.tsx",
+		"/Users/crato/ux-audit-pro/src/app/dashboard/settings/sidebar-nav.tsx",
+		"/Users/crato/ux-audit-pro/src/components/ui/textarea.tsx",
+		"/Users/crato/ux-audit-pro/src/components/ui/label.tsx",
+		"/Users/crato/ux-audit-pro/src/components/ui/toast.tsx",
+		"/Users/crato/ux-audit-pro/src/components/ui/badge.tsx",
+		"/Users/crato/ux-audit-pro/eslintrc.json",
+		"/Users/crato/ux-audit-pro/src/app/dashboard/settings/account/page.tsx",
+		"/Users/crato/ux-audit-pro/src/components/ui/checkbox.tsx",
+		"/Users/crato/ux-audit-pro/src/components/auth-status.tsx",
+		"/Users/crato/Desktop/template-home.php",
+		"/Users/crato/Desktop/instapy-quickstart-master/quickstart.py",
+		"/Users/crato/Desktop/instapy-quickstart-master/quickstart_templates/good_commenting_strategy_and_new_qs_system.py",
+		"/Users/crato/Desktop/instapy-quickstart-master/quickstart_templates/basic_follow-unfollow_activity.py"
+	],
+	"find":
+	{
+		"height": 24.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "tailwind.config.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 264.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

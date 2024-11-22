@@ -1,0 +1,55 @@
+name: UX Audit Pro CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: |
+        npm install
+        npm install @auth0/nextjs-auth0@latest
+
+    - name: Create dummy .env file
+      run: |
+        echo "NEXT_PUBLIC_APP_NAME=UX Audit Pro" >> .env
+        echo "NEXT_PUBLIC_APP_URL=http://localhost:3000" >> .env
+        echo "AUTH0_SECRET=dummy-secret-for-build" >> .env
+        echo "AUTH0_BASE_URL=http://localhost:3000" >> .env
+        echo "AUTH0_ISSUER_BASE_URL=https://dummy.auth0.com" >> .env
+        echo "AUTH0_CLIENT_ID=dummy-client-id" >> .env
+        echo "AUTH0_CLIENT_SECRET=dummy-client-secret" >> .env
+        echo "MONGODB_URI=mongodb://dummy:dummy@localhost:27017/test" >> .env
+
+    - name: Type check
+      run: npx tsc --noEmit
+      
+    - name: Lint
+      run: npm run lint
+
+    - name: Build
+      run: npm run build
+      env:
+        NEXT_PUBLIC_APP_NAME: "UX Audit Pro"
+        NEXT_PUBLIC_APP_URL: "http://localhost:3000"
+        AUTH0_SECRET: "dummy-secret-for-build"
+        AUTH0_BASE_URL: "http://localhost:3000"
+        AUTH0_ISSUER_BASE_URL: "https://dummy.auth0.com"
+        AUTH0_CLIENT_ID: "dummy-client-id"
+        AUTH0_CLIENT_SECRET: "dummy-client-secret"
+        MONGODB_URI: "mongodb://dummy:dummy@localhost:27017/test"
