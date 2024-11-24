@@ -1,8 +1,23 @@
 import React from 'react'
-import UserDependentContent from '../../components/auth/UserDependentContent'
+import { getSession } from '@auth0/nextjs-auth0'
+import { redirect } from 'next/navigation'
 import Navigation from '../../components/layout/Navigation'
+import DashboardContent from '../../components/dashboard/DashboardContent'
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+   const session = await getSession()
+  
+  if (!session?.user) {
+    redirect('/login')
+  }
+
+  return (
+    <div>
+      <Navigation />
+      <DashboardContent user={session.user} />
+    </div>
+  )
+
   return (
     <div>
       <Navigation />
@@ -25,3 +40,4 @@ export default function DashboardPage() {
     </div>
   )
 }
+
