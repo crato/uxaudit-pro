@@ -1,0 +1,155 @@
+
+> @uxaudit-pro/backend@1.0.0 test
+> jest
+
+[1G[0K[1m[2mDetermining test suites to run...[22m[22m[999D[K
+[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mdatabase.test.ts[22m
+[K[1A[K[1A(node:14244) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mdatabase.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mdatabase.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mdatabase.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mdatabase.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/__tests__/[22m[1mdatabase.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mdatabase.test.ts[22m
+[K[1A[K[1A  [1m● [22mConsole
+
+    [2mconsole.log[22m
+      Successfully connected to MongoDB
+[2m[22m
+[2m      [2mat Database.connect ([22m[2msrc/utils/database.ts[2m:27:15)[22m[2m[22m
+
+    [2m[33mconsole.warn[39m[22m
+[33m      MongoDB disconnected[39m
+[2m[22m
+[2m    [0m [90m 56 |[39m[22m
+[2m     [90m 57 |[39m   [36mprivate[39m handleDisconnect()[33m:[39m [36mvoid[39m {[22m
+[2m    [31m[1m>[22m[2m[39m[90m 58 |[39m     console[33m.[39mwarn([32m'MongoDB disconnected'[39m)[33m;[39m[22m
+[2m     [90m    |[39m             [31m[1m^[22m[2m[39m[22m
+[2m     [90m 59 |[39m   }[22m
+[2m     [90m 60 |[39m[22m
+[2m     [90m 61 |[39m   [36mpublic[39m getConnection()[33m:[39m mongoose[33m.[39m[33mConnection[39m {[0m[22m
+[2m[22m
+[2m      [2mat NativeConnection.handleDisconnect ([22m[2msrc/utils/database.ts[2m:58:13)[22m[2m[22m
+[2m      [2mat NativeConnection.set ([22m[2m../../node_modules/mongoose/lib/connection.js[2m:123:12)[22m[2m[22m
+[2m      [2mat NativeConnection.Object.<anonymous>.Connection.onClose ([22m[2m../../node_modules/mongoose/lib/connection.js[2m:961:19)[22m[2m[22m
+[2m      [2mat NativeConnection._close ([22m[2m../../node_modules/mongoose/lib/connection.js[2m:911:12)[22m[2m[22m
+[2m      [2mat Database.disconnect ([22m[2msrc/utils/database.ts[2m:44:7)[22m[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2msrc/__tests__/setup.ts[2m:17:3)[22m[2m[22m
+
+    [2mconsole.log[22m
+      MongoDB disconnected
+[2m[22m
+[2m      [2mat Database.disconnect ([22m[2msrc/utils/database.ts[2m:46:15)[22m[2m[22m
+
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mdatabase.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mdatabase.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mintegration.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mintegration.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mintegration.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mintegration.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mintegration.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/__tests__/[22m[1mintegration.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mintegration.test.ts[22m
+[K[1A[K[1A  [1m● [22mConsole
+
+    [2mconsole.log[22m
+      Successfully connected to MongoDB
+[2m[22m
+[2m      [2mat Database.connect ([22m[2msrc/utils/database.ts[2m:27:15)[22m[2m[22m
+
+    [2m[33mconsole.warn[39m[22m
+[33m      MongoDB disconnected[39m
+[2m[22m
+[2m    [0m [90m 56 |[39m[22m
+[2m     [90m 57 |[39m   [36mprivate[39m handleDisconnect()[33m:[39m [36mvoid[39m {[22m
+[2m    [31m[1m>[22m[2m[39m[90m 58 |[39m     console[33m.[39mwarn([32m'MongoDB disconnected'[39m)[33m;[39m[22m
+[2m     [90m    |[39m             [31m[1m^[22m[2m[39m[22m
+[2m     [90m 59 |[39m   }[22m
+[2m     [90m 60 |[39m[22m
+[2m     [90m 61 |[39m   [36mpublic[39m getConnection()[33m:[39m mongoose[33m.[39m[33mConnection[39m {[0m[22m
+[2m[22m
+[2m      [2mat NativeConnection.handleDisconnect ([22m[2msrc/utils/database.ts[2m:58:13)[22m[2m[22m
+[2m      [2mat NativeConnection.set ([22m[2m../../node_modules/mongoose/lib/connection.js[2m:123:12)[22m[2m[22m
+[2m      [2mat NativeConnection.Object.<anonymous>.Connection.onClose ([22m[2m../../node_modules/mongoose/lib/connection.js[2m:961:19)[22m[2m[22m
+[2m      [2mat NativeConnection._close ([22m[2m../../node_modules/mongoose/lib/connection.js[2m:911:12)[22m[2m[22m
+[2m      [2mat Database.disconnect ([22m[2msrc/utils/database.ts[2m:44:7)[22m[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2msrc/__tests__/setup.ts[2m:17:3)[22m[2m[22m
+
+    [2mconsole.log[22m
+      MongoDB disconnected
+[2m[22m
+[2m      [2mat Database.disconnect ([22m[2msrc/utils/database.ts[2m:46:15)[22m[2m[22m
+
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mintegration.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mcrud.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mcrud.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mcrud.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mcrud.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mcrud.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mcrud.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mcrud.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/__tests__/[22m[1mcrud.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mcrud.test.ts[22m
+[K[1A[K[1A  [1m● [22mConsole
+
+    [2mconsole.log[22m
+      Successfully connected to MongoDB
+[2m[22m
+[2m      [2mat Database.connect ([22m[2msrc/utils/database.ts[2m:27:15)[22m[2m[22m
+
+    [2m[33mconsole.warn[39m[22m
+[33m      MongoDB disconnected[39m
+[2m[22m
+[2m    [0m [90m 56 |[39m[22m
+[2m     [90m 57 |[39m   [36mprivate[39m handleDisconnect()[33m:[39m [36mvoid[39m {[22m
+[2m    [31m[1m>[22m[2m[39m[90m 58 |[39m     console[33m.[39mwarn([32m'MongoDB disconnected'[39m)[33m;[39m[22m
+[2m     [90m    |[39m             [31m[1m^[22m[2m[39m[22m
+[2m     [90m 59 |[39m   }[22m
+[2m     [90m 60 |[39m[22m
+[2m     [90m 61 |[39m   [36mpublic[39m getConnection()[33m:[39m mongoose[33m.[39m[33mConnection[39m {[0m[22m
+[2m[22m
+[2m      [2mat NativeConnection.handleDisconnect ([22m[2msrc/utils/database.ts[2m:58:13)[22m[2m[22m
+[2m      [2mat NativeConnection.set ([22m[2m../../node_modules/mongoose/lib/connection.js[2m:123:12)[22m[2m[22m
+[2m      [2mat NativeConnection.Object.<anonymous>.Connection.onClose ([22m[2m../../node_modules/mongoose/lib/connection.js[2m:961:19)[22m[2m[22m
+[2m      [2mat NativeConnection._close ([22m[2m../../node_modules/mongoose/lib/connection.js[2m:911:12)[22m[2m[22m
+[2m      [2mat Database.disconnect ([22m[2msrc/utils/database.ts[2m:44:7)[22m[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2msrc/__tests__/setup.ts[2m:17:3)[22m[2m[22m
+
+    [2mconsole.log[22m
+      MongoDB disconnected
+[2m[22m
+[2m      [2mat Database.disconnect ([22m[2msrc/utils/database.ts[2m:46:15)[22m[2m[22m
+
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/__tests__/[22m[1mcrud.test.ts[22m
+[K[1A[K[1A[999D[K
+[1mTest Suites: [22m[1m[32m3 passed[39m[22m, 3 total
+[1mTests:       [22m[1m[32m9 passed[39m[22m, 9 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        1.982 s
+[2mRan all test suites[22m[2m.[22m
+[1G[0K⠙[1G[0K

@@ -2,14 +2,14 @@
   "name": "uxaudit-pro",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "type-check": "tsc --noEmit",
-    "test": "jest",
-    "format": "prettier --write .",
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
     "clean": "rm -rf .next"
   },
   "dependencies": {
@@ -42,6 +42,7 @@
     "eslint-config-next": "15.0.3",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
+    "turbo": "^1.13.4",
     "typescript": "^5"
   }
 }
