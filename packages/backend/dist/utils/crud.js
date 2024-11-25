@@ -6,13 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createCrudHandlers = exports.CrudOperations = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const shared_1 = require("@uxaudit-pro/shared");
+// Single export for CrudOperations class
 class CrudOperations {
     constructor(model) {
         this.model = model;
     }
-    /**
-     * Create a new document
-     */
     async create(data) {
         try {
             const document = new this.model(data);
@@ -23,9 +21,6 @@ class CrudOperations {
             throw error;
         }
     }
-    /**
-     * Find a document by ID
-     */
     async findById(id) {
         try {
             return await this.model.findById(id).exec();
@@ -35,9 +30,6 @@ class CrudOperations {
             throw error;
         }
     }
-    /**
-     * Update a document by ID
-     */
     async updateById(id, data) {
         try {
             return await this.model.findByIdAndUpdate(id, { $set: data }, { new: true, runValidators: true }).exec();
@@ -47,9 +39,6 @@ class CrudOperations {
             throw error;
         }
     }
-    /**
-     * Delete a document by ID
-     */
     async deleteById(id) {
         try {
             const result = await this.model.findByIdAndDelete(id).exec();
@@ -60,9 +49,6 @@ class CrudOperations {
             throw error;
         }
     }
-    /**
-     * Find documents with pagination
-     */
     async findWithPagination(query = {}, options = {}) {
         try {
             const page = Math.max(1, options.page || 1);
@@ -93,9 +79,6 @@ class CrudOperations {
             throw error;
         }
     }
-    /**
-     * Handle common MongoDB errors
-     */
     handleError(error) {
         if (error instanceof mongoose_1.default.Error.ValidationError) {
             throw new shared_1.APIError(400, 'Validation error', error.errors);
@@ -109,7 +92,7 @@ class CrudOperations {
     }
 }
 exports.CrudOperations = CrudOperations;
-// Create specific CRUD handlers for our models
+// Single export for createCrudHandlers function
 const createCrudHandlers = (model) => {
     return new CrudOperations(model);
 };

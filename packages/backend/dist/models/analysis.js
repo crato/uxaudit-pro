@@ -50,6 +50,8 @@ const analysisSchema = new mongoose_1.Schema({
     },
     sourceUrl: String,
     issues: [{
+            _id: false, // Disable automatic _id for subdocuments
+            id: { type: String, required: true },
             title: { type: String, required: true },
             description: { type: String, required: true },
             severity: {
@@ -60,7 +62,7 @@ const analysisSchema = new mongoose_1.Schema({
             category: { type: String, required: true },
             location: String,
             screenshot: String,
-            recommendations: [String],
+            recommendations: { type: [String], required: true },
             wcagGuideline: String,
             impact: { type: String, required: true },
             effort: { type: String, required: true },
@@ -87,6 +89,7 @@ const analysisSchema = new mongoose_1.Schema({
 }, {
     timestamps: true
 });
+// Add indexes
 analysisSchema.index({ projectId: 1, createdAt: -1 });
 analysisSchema.index({ auditType: 1 });
 exports.Analysis = mongoose_1.default.model('Analysis', analysisSchema);
