@@ -1,0 +1,64 @@
+import express from 'express';
+import path from 'path';
+import { db } from './utils/';
+import analysisRoutes from './routes/analysis';
+import { APIError } from '@uxaudit-pro/shared';
+import { config } from './config/env';
+
+
+// For debugging - remove after fixing
+console.log('Current directory:', process.cwd());
+console.log('Utils directory:', path.join(process.cwd(), 'src', 'utils'));
+console.log('Database file:', path.join(process.cwd(), 'src', 'utils', 'database.ts'));
+
+// ****************** //
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Routes
+app.use('/api', analysisRoutes);
+
+// Error handling middleware
+app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  if (err instanceof APIError) {
+    return res.status(err.statusCode).json({
+      error: err.message,
+      details: err.details
+    });
+  }
+
+  console.error('Unhandled error:', err);
+  return res.status(500).json({
+    error: 'Internal server error'
+  });
+});
+
+// Start server
+async function startServer() {
+  try {
+    // Connect to database
+    await db.connect();
+    
+    // Start listening
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to start server:', error);
+    process.exit(1);
+  }
+}
+
+// Handle graceful shutdown
+process.on('SIGTERM', async () => {
+  console.log('SIGTERM received. Shutting down gracefully...');
+  await db.disconnect();
+  process.exit(0);
+});
+
+startServer();

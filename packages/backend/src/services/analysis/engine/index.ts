@@ -1,7 +1,10 @@
-// File: packages/backend/src/services/analysis/engine/index.ts
 import { AuditSource } from '@uxaudit-pro/shared';
 import { ProcessorInput, ProcessorResult, InputProcessor, TaskQueue } from './types';
 import { APIError } from '@uxaudit-pro/shared';
+import { ColorContrastAnalyzer } from '../analyzers/color-contrast';
+import { TextReadabilityAnalyzer } from '../analyzers/text-readability';
+import { ComponentSpacingAnalyzer } from '../analyzers/component-spacing';
+import { ImageAnalyzer } from '../analyzers/image-analyzer';
 
 class DefaultTaskQueue implements TaskQueue {
   private tasks: Map<string, ProcessorResult> = new Map();
@@ -46,11 +49,29 @@ class DefaultTaskQueue implements TaskQueue {
 }
 
 export class AnalysisEngine {
+  private static instance: AnalysisEngine;
   private processors: Map<AuditSource, InputProcessor> = new Map();
   private taskQueue: TaskQueue;
 
-  constructor(taskQueue?: TaskQueue) {
+  private constructor(taskQueue?: TaskQueue) {
     this.taskQueue = taskQueue || new DefaultTaskQueue();
+  }
+
+  public static getInstance(taskQueue?: TaskQueue): AnalysisEngine {
+    if (!AnalysisEngine.instance) {
+      AnalysisEngine.instance = new AnalysisEngine(taskQueue);
+      AnalysisEngine.instance.initialize();
+    }
+    return AnalysisEngine.instance;
+  }
+
+  public initialize(): void {
+    // Register all analyzers
+    this.registerProcessor(AuditSource.URL, new ColorContrastAnalyzer());
+    this.registerProcessor(AuditSource.URL, new TextReadabilityAnalyzer());
+    this.registerProcessor(AuditSource.URL, new ComponentSpacingAnalyzer());
+
+     this.registerProcessor(AuditSource.IMAGE, new ImageAnalyzer());
   }
 
   registerProcessor(source: AuditSource, processor: InputProcessor) {
@@ -79,4 +100,12 @@ export class AnalysisEngine {
   async getAnalysisStatus(taskId: string): Promise<ProcessorResult | undefined> {
     return this.taskQueue.getStatus(taskId);
   }
+
+  // Helper method to get processor (useful for testing)
+  getProcessor(source: AuditSource): InputProcessor | undefined {
+    return this.processors.get(source);
+  }
 }
+
+// Export singleton instance
+export const analysisEngine = AnalysisEngine.getInstance();

@@ -1,85 +1,27 @@
-// File: packages/backend/scripts/verify-analyzers.ts
-import { AnalysisEngine } from '../services/analysis/engine';
+import { AuditSource, AuditType } from '@uxaudit-pro/shared';
 import { ColorContrastAnalyzer } from '../services/analysis/analyzers/color-contrast';
 import { TextReadabilityAnalyzer } from '../services/analysis/analyzers/text-readability';
 import { ComponentSpacingAnalyzer } from '../services/analysis/analyzers/component-spacing';
-import { AuditSource, AuditType } from '@uxaudit-pro/shared';
+import { analysisEngine } from '../services/analysis/engine';
 
 async function verifyAnalyzers() {
-  console.log('Starting comprehensive analyzer verification...\n');
-
-  // Initialize engine and analyzers
-  const engine = new AnalysisEngine();
-  engine.registerProcessor(AuditSource.URL, new ColorContrastAnalyzer());
-  engine.registerProcessor(AuditSource.URL, new TextReadabilityAnalyzer());
-  engine.registerProcessor(AuditSource.URL, new ComponentSpacingAnalyzer());
-
-  // Test HTML with multiple issues
-  const testHtml = `
-    <!DOCTYPE html>
-    <html>
-      <body>
-        <!-- Color contrast issue -->
-        <div style="color: #FFFFFF; background-color: #808080">
-          <p>White text on gray background (should fail contrast)</p>
-        </div>
-
-        <!-- Text size issue -->
-        <div style="font-size: 10px">
-          Text too small for comfortable reading
-        </div>
-
-        <!-- Heading hierarchy issue -->
-        <h1>Main Title</h1>
-        <h3>Skipped H2 (hierarchy issue)</h3>
-
-        <!-- Spacing issues -->
-        <div style="margin: 15px; padding: 7px">
-          Non-standard spacing
-        </div>
-        <div style="margin-left: 16px; margin-right: 24px">
-          Asymmetric margins
-        </div>
-      </body>
-    </html>
-  `;
-
-  console.log('Testing sample HTML with known issues...\n');
-
   try {
+    // Use the singleton instance
+    const engine = analysisEngine;
+
+    // Use proper AuditType enum value
     const result = await engine.submitAnalysis({
-      projectId: 'verification-test',
       source: AuditSource.URL,
-      content: testHtml,
-      type: AuditType.ACCESSIBILITY
+      content: 'https://example.com',
+      type: AuditType.ACCESSIBILITY,  // Using enum value instead of string
+      projectId: 'test'
     });
 
-    console.log('Analysis completed successfully!\n');
-    
-    if (result.result?.issues) {
-      console.log('Detected Issues:');
-      result.result.issues.forEach((issue: any, index: number) => {
-        console.log(`\nIssue ${index + 1}:`);
-        console.log(`Type: ${issue.type}`);
-        console.log(`Severity: ${issue.severity}`);
-        console.log(`Message: ${issue.message}`);
-        console.log(`Location: ${issue.location}`);
-        if (issue.value) console.log(`Value: ${issue.value}`);
-        if (issue.recommendation) console.log(`Recommendation: ${issue.recommendation}`);
-      });
-
-      // Verify each analyzer found issues
-      const issueTypes = result.result.issues.map((i: any) => i.type);
-      console.log('\nVerification Summary:');
-      console.log('- Contrast issues found:', issueTypes.includes('contrast'));
-      console.log('- Font size issues found:', issueTypes.includes('font-size'));
-      console.log('- Heading hierarchy issues found:', issueTypes.includes('heading-hierarchy'));
-      console.log('- Spacing consistency issues found:', issueTypes.includes('spacing-consistency'));
-      console.log('- Alignment issues found:', issueTypes.includes('alignment'));
-    }
+    console.log('Analysis result:', result);
   } catch (error) {
     console.error('Verification failed:', error);
+    process.exit(1);
   }
 }
 
-verifyAnalyzers().catch(console.error);
+verifyAnalyzers();

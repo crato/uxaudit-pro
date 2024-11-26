@@ -1,7 +1,7 @@
 // File: packages/backend/src/analysis/analyzers/__tests__/color-contrast.test.ts
 import { ColorContrastAnalyzer } from '../color-contrast';
 import { ProcessorInput } from '../../types/processor';
-import { APIError } from '@uxaudit-pro/shared';
+import { APIError , AuditType, AuditSource } from '@uxaudit-pro/shared';
 
 describe('ColorContrastAnalyzer', () => {
   let analyzer: ColorContrastAnalyzer;

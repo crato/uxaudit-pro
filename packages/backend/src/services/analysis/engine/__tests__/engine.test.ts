@@ -1,5 +1,5 @@
 // File: packages/backend/src/services/analysis/engine/__tests__/engine.test.ts
-import { AnalysisEngine } from '../index';
+import { AnalysisEngine, analysisEngine } from '../index';
 import { ProcessorInput, InputProcessor } from '../types';
 import { AuditSource, AuditType } from '@uxaudit-pro/shared';
 import { APIError } from '@uxaudit-pro/shared';

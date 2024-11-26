@@ -6,8 +6,12 @@ export interface ProcessorInput {
   source: AuditSource;
   content: string | Buffer;
   type: AuditType;
+  maxSize?: number;
   options?: Record<string, unknown>;
+  timeoutMs?: number;
+  metadata?: Record<string, unknown>;
 }
+
 
 export interface ProcessorResult {
   id: string;
@@ -15,6 +19,9 @@ export interface ProcessorResult {
   progress?: number;
   result?: any;
   error?: string;
+  startedAt?: Date;
+  completedAt?: Date;
+  metadata?: Record<string, unknown>;
 }
 
 export interface InputProcessor {
@@ -27,3 +34,4 @@ export interface TaskQueue {
   add(task: () => Promise<ProcessorResult>): Promise<string>;
   getStatus(id: string): ProcessorResult | undefined;
 }
+

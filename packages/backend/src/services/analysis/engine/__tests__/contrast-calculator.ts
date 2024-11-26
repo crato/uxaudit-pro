@@ -1,5 +1,5 @@
 // File: packages/backend/src/services/analysis/analyzers/__tests__/contrast-calculator.ts
-import { ColorValue } from '@uxaudit-pro/shared';
+import { ColorValue } from '../../analyzers/types';
 
 export class ContrastCalculator {
   // Convert hex to RGB

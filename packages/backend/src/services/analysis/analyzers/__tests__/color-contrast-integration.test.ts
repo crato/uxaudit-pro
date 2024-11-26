@@ -1,11 +1,11 @@
 // File: packages/backend/src/analysis/analyzers/__tests__/color-contrast-integration.test.ts
 import { AuditSource, AuditType } from '@uxaudit-pro/shared';
-import { AnalysisEngine } from '../../engine/index';
+import { analysisEngine } from '../../engine/index';
 import { ColorContrastAnalyzer } from '../color-contrast';
-import { Analysis } from '../../../models/analysis';
+import { Analysis } from './models/analysis';
 import { APIError } from '@uxaudit-pro/shared';
 
-import { InputProcessor, ProcessorInput } from '../../types/processor';
+import { InputProcessor, ProcessorInput, ProcessorResult } from '../../engine/types';
 
 describe('Color Contrast Analyzer Integration', () => {
   let engine: AnalysisEngine;
