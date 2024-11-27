@@ -1,0 +1,463 @@
+# Frontend Integration Guide - UX Audit Pro Analyzers
+
+## Overview
+This guide details how to integrate UX Audit Pro's analysis capabilities (Color Contrast, Text Readability, and Component Spacing) into the frontend application. 
+
+## Prerequisites
+```bash
+# Required dependencies
+npm install @uxaudit-pro/shared
+npm install @tanstack/react-query
+npm install @/components/ui  # shadcn/ui components
+```
+
+## API Integration Layer
+
+### Types
+```typescript
+// src/types/analysis.ts
+import { AuditSource, AuditType } from '@uxaudit-pro/shared';
+
+export interface AnalysisRequest {
+  content: string;
+  source: AuditSource;
+  type: AuditType;
+  projectId?: string;
+}
+
+export interface AnalysisIssue {
+  type: string;
+  severity: 'critical' | 'warning' | 'info';
+  message: string;
+  location: string;
+  value?: number;
+  recommendation?: string;
+}
+
+export interface AnalysisResult {
+  id: string;
+  status: 'pending' | 'processing' | 'completed' | 'failed';
+  result?: {
+    issues: AnalysisIssue[];
+  };
+  error?: string;
+}
+
+export type AnalyzerType = 'contrast' | 'readability' | 'spacing';
+```
+
+### API Service
+```typescript
+// src/services/api/analyzers.ts
+import { AnalysisRequest, AnalysisResult } from '@/types/analysis';
+
+class AnalyzersApi {
+  private baseUrl = '/api/analyze';
+
+  async analyze(request: AnalysisRequest): Promise<AnalysisResult> {
+    try {
+      const response = await fetch(this.baseUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(request),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Analysis failed');
+      }
+
+      return response.json();
+    } catch (error) {
+      throw new Error(`Analysis request failed: ${error.message}`);
+    }
+  }
+
+  async getStatus(analysisId: string): Promise<AnalysisResult> {
+    const response = await fetch(`${this.baseUrl}/${analysisId}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch analysis status');
+    }
+    return response.json();
+  }
+}
+
+export const analyzersApi = new AnalyzersApi();
+```
+
+## React Components
+
+### Analysis Form
+```typescript
+// src/components/analysis/AnalysisForm.tsx
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Alert } from '@/components/ui/alert';
+import { analyzersApi } from '@/services/api/analyzers';
+import { AuditSource, AuditType } from '@uxaudit-pro/shared';
+
+export function AnalysisForm({ onAnalysisComplete }) {
+  const [url, setUrl] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const result = await analyzersApi.analyze({
+        content: url,
+        source: AuditSource.URL,
+        type: AuditType.ACCESSIBILITY
+      });
+      onAnalysisComplete(result);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="flex gap-2">
+        <Input
+          type="url"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          placeholder="Enter URL to analyze"
+          required
+          disabled={loading}
+        />
+        <Button type="submit" disabled={loading}>
+          {loading ? 'Analyzing...' : 'Analyze'}
+        </Button>
+      </div>
+      
+      {error && (
+        <Alert variant="destructive">
+          {error}
+        </Alert>
+      )}
+    </form>
+  );
+}
+```
+
+### Results Display
+```typescript
+// src/components/analysis/ResultsDisplay.tsx
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { AnalysisResult, AnalysisIssue } from '@/types/analysis';
+
+interface ResultsDisplayProps {
+  results: AnalysisResult;
+}
+
+const severityColors = {
+  critical: 'bg-red-100 text-red-800',
+  warning: 'bg-yellow-100 text-yellow-800',
+  info: 'bg-blue-100 text-blue-800'
+};
+
+export function ResultsDisplay({ results }: ResultsDisplayProps) {
+  if (!results.result?.issues?.length) {
+    return (
+      <Card className="p-4">
+        <p>No issues found.</p>
+      </Card>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      {results.result.issues.map((issue, index) => (
+        <Card key={index} className="p-4">
+          <div className="flex items-start justify-between">
+            <div>
+              <Badge className={severityColors[issue.severity]}>
+                {issue.severity}
+              </Badge>
+              <h3 className="mt-2 font-medium">{issue.message}</h3>
+            </div>
+          </div>
+          
+          <div className="mt-2 text-sm text-gray-600">
+            <p>Location: {issue.location}</p>
+            {issue.value && <p>Value: {issue.value}</p>}
+          </div>
+          
+          {issue.recommendation && (
+            <div className="mt-3 p-3 bg-blue-50 rounded">
+              <p className="text-sm">{issue.recommendation}</p>
+            </div>
+          )}
+        </Card>
+      ))}
+    </div>
+  );
+}
+```
+
+### Analysis Page
+```typescript
+// src/pages/analysis/index.tsx
+import { useState } from 'react';
+import { AnalysisForm } from '@/components/analysis/AnalysisForm';
+import { ResultsDisplay } from '@/components/analysis/ResultsDisplay';
+import { AnalysisResult } from '@/types/analysis';
+
+export default function AnalysisPage() {
+  const [results, setResults] = useState<AnalysisResult | null>(null);
+
+  return (
+    <div className="container mx-auto py-8 space-y-8">
+      <h1 className="text-2xl font-bold">UX Analysis</h1>
+      
+      <AnalysisForm 
+        onAnalysisComplete={(result) => setResults(result)} 
+      />
+      
+      {results && <ResultsDisplay results={results} />}
+    </div>
+  );
+}
+```
+
+## Error Handling
+
+### Error Types
+```typescript
+// src/types/errors.ts
+export interface ApiError {
+  code: string;
+  message: string;
+  details?: unknown;
+}
+
+export class AnalysisError extends Error {
+  constructor(
+    message: string,
+    public code: string,
+    public details?: unknown
+  ) {
+    super(message);
+    this.name = 'AnalysisError';
+  }
+}
+```
+
+### Error Handling Component
+```typescript
+// src/components/analysis/ErrorDisplay.tsx
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { ApiError } from '@/types/errors';
+
+interface ErrorDisplayProps {
+  error: ApiError;
+  onRetry?: () => void;
+}
+
+export function ErrorDisplay({ error, onRetry }: ErrorDisplayProps) {
+  return (
+    <Alert variant="destructive">
+      <AlertTitle>{error.code}</AlertTitle>
+      <AlertDescription>{error.message}</AlertDescription>
+      {onRetry && (
+        <button 
+          onClick={onRetry}
+          className="mt-2 text-sm underline"
+        >
+          Try Again
+        </button>
+      )}
+    </Alert>
+  );
+}
+```
+
+## Loading States
+
+### Loading Component
+```typescript
+// src/components/analysis/LoadingState.tsx
+import { Spinner } from '@/components/ui/spinner';
+
+export function LoadingState() {
+  return (
+    <div className="flex items-center justify-center p-8">
+      <Spinner className="w-8 h-8 text-primary" />
+      <span className="ml-2">Analyzing...</span>
+    </div>
+  );
+}
+```
+
+## Usage Example
+```typescript
+// src/pages/analysis/example.tsx
+import { useState } from 'react';
+import { AnalysisForm } from '@/components/analysis/AnalysisForm';
+import { ResultsDisplay } from '@/components/analysis/ResultsDisplay';
+import { LoadingState } from '@/components/analysis/LoadingState';
+import { ErrorDisplay } from '@/components/analysis/ErrorDisplay';
+import { useAnalysis } from '@/hooks/useAnalysis';
+
+export default function ExamplePage() {
+  const { analyze, loading, error, results } = useAnalysis();
+
+  const handleAnalysis = async (url: string) => {
+    await analyze(url);
+  };
+
+  return (
+    <div className="container mx-auto py-8 space-y-8">
+      <h1 className="text-2xl font-bold">UX Analysis Example</h1>
+      
+      <AnalysisForm onSubmit={handleAnalysis} />
+      
+      {loading && <LoadingState />}
+      
+      {error && (
+        <ErrorDisplay 
+          error={error} 
+          onRetry={() => handleAnalysis()} 
+        />
+      )}
+      
+      {results && <ResultsDisplay results={results} />}
+    </div>
+  );
+}
+```
+
+## State Management Hook
+```typescript
+// src/hooks/useAnalysis.ts
+import { useState } from 'react';
+import { analyzersApi } from '@/services/api/analyzers';
+import { AnalysisResult } from '@/types/analysis';
+import { ApiError } from '@/types/errors';
+
+export function useAnalysis() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<ApiError | null>(null);
+  const [results, setResults] = useState<AnalysisResult | null>(null);
+
+  const analyze = async (url: string) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const result = await analyzersApi.analyze({
+        content: url,
+        source: 'url',
+        type: 'accessibility'
+      });
+      setResults(result);
+    } catch (err) {
+      setError({
+        code: err.code || 'ANALYSIS_ERROR',
+        message: err.message
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    analyze,
+    loading,
+    error,
+    results,
+    clearResults: () => setResults(null),
+    clearError: () => setError(null)
+  };
+}
+```
+
+## Troubleshooting Guide
+
+### Common Issues
+
+1. **Analysis Timeout**
+   ```typescript
+   // Handle timeout errors
+   if (error.code === 'ANALYSIS_TIMEOUT') {
+     // Implement retry logic
+     await new Promise(resolve => setTimeout(resolve, 1000));
+     return analyze(url);
+   }
+   ```
+
+2. **Invalid URL Format**
+   ```typescript
+   // Validate URL before submission
+   const isValidUrl = (url: string) => {
+     try {
+       new URL(url);
+       return true;
+     } catch {
+       return false;
+     }
+   };
+   ```
+
+3. **Rate Limiting**
+   ```typescript
+   // Implement rate limiting handler
+   if (error.code === 'RATE_LIMIT_EXCEEDED') {
+     const retryAfter = parseInt(error.details?.retryAfter || '60');
+     // Show retry countdown
+   }
+   ```
+
+### Performance Optimization
+
+1. **Result Caching**
+   ```typescript
+   // Implement local storage caching
+   const getCachedResult = (url: string) => {
+     const cached = localStorage.getItem(`analysis_${url}`);
+     return cached ? JSON.parse(cached) : null;
+   };
+   ```
+
+2. **Debounced Analysis**
+   ```typescript
+   // Implement debounced analysis
+   const debouncedAnalyze = debounce((url: string) => {
+     analyze(url);
+   }, 500);
+   ```
+
+## Common Integration Points
+
+1. **Project Integration**
+   ```typescript
+   // Integrate with project context
+   const { projectId } = useProject();
+   const analyze = async (url: string) => {
+     // Include project context
+     await analyzersApi.analyze({
+       content: url,
+       projectId
+     });
+   };
+   ```
+
+2. **Team Collaboration**
+   ```typescript
+   // Share analysis results
+   const shareResults = async (analysisId: string, teamId: string) => {
+     await analyzersApi.shareAnalysis(analysisId, teamId);
+   };
+   ```
+
+This enhanced documentation provides a complete guide for frontend integration. Let me know if you'd like me to enhance the Phase 4 documentation next!

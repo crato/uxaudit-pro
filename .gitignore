@@ -31,3 +31,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# cache 
+.cache
+**/node_modules/.cache
+**/node_modules/.cache/**
+packages/backend/node_modules/.cache
+packages/frontend/node_modules/.cache
+
+# MongoDB memory server files
+**/mongodb-memory-server
